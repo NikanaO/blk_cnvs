@@ -1,5 +1,3 @@
-# coding: utf-8
-# %load canvas/constructs/base/ignite.py
 #!/usr/bin/python3
 
 #Global modules and aliases
