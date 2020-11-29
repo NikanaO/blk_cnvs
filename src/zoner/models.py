@@ -53,6 +53,7 @@ class DomainModel(Model):
             is_dir=lambda self: bool(self.is_dir())
             hidden=lambda self: bool(self.name.startswith('.'))
             has_extension=lambda self: bool(self.suffix)
+            is_config=lambda self: bool(self.name.endswith('rc'))
 
             def file_types(self=None):
                 typedct={
@@ -63,15 +64,23 @@ class DomainModel(Model):
                     'media': ('.mp3','.mp4'),
                 }
                 return typedct
+                
             if is_file(self) and has_extension(self):
                 unpack=lambda lst: " ".join(map(str, lst))
                 file_type=file_types(self)
                 genre=[ftype for ftype, extension in file_type.items() if self.suffix in extension]
-                return(f"file type: {unpack(genre)}", f"hidden: {hidden(self)}")
+                return(f"file type: {unpack(genre)}")
+                
+            elif is_file(self) and is_config(self):
+                return(f"file type: configuration")
+                
+            elif is_file(self):
+                return(f"file type: unknown")
+                
             elif is_dir(self):
                 peek=lambda self: [*self.iterdir()]
                 has_meta=lambda self: bool(self.joinpath('.meta') in peek(self))
                 is_repo=lambda self: bool(self.joinpath('.git') in peek(self))
                 subdirectories=[pth for pth in peek(self) if is_dir(self)]
                 files=[pth for pth in peek(self) if is_file(self)]
-                return(f"subdirectories: {len(subdirectories)}", f"files: {len(files)}", f"hidden: {hidden(self)}", f"flowzone: {has_meta(self)}")
+                return(f"subdirectories: {len(subdirectories)}", f"files: {len(files)}", f"flowzone: {has_meta(self)}")
