@@ -1,0 +1,6 @@
+src/easel/*
+src/viewer/*
+venv
+**/*.pyc
+env
+__pycache__
