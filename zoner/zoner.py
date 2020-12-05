@@ -1,6 +1,7 @@
+#zoner/models.py
 
 from pathlib import Path
-from models import DomainModel
+from models import Domain
 
 
 homed=Path.home()
@@ -15,15 +16,12 @@ def charter(root_directory=homed):
         'hidden': lambda lst: [pth[0] for pth in lst if pth[0].startswith('.')],
         }
 
-    homedom=[DomainModel.Address(pth.name) for pth in homed.iterdir()]
+    homedom=[Domain(pth.name) for pth in homed.iterdir()]
     homeinfo=[(pth.name, pth.path_type, pth.address_info(pth.address)) for pth in homedom]
-    workshop=isort['flowzone'](homeinfo)
-    
 
-    
 def main():
 
-    homed=DomainModel.Address('altvu')
+    homed=Domain('altvu')
 
 
 if __name__ == "__main__":

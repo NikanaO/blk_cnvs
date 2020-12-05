@@ -53,7 +53,7 @@ class Folder:
                     return foldertype
         else:
             return 'standard'
-                    
+
 
 #    def __str__(self):
 #        return {
@@ -73,8 +73,8 @@ class Domain:
 
     def file_seek(self, suffix, directory='.'):
         pathlist=Path(directory).glob('**/*' + suffix)
-        filepaths=lambda lst: [f.__str__() for f in lst if Path.is_file(f)]
-        return {f"{suffix}_files": self.files(pathlist)}                  
+        #filepaths=lambda lst: [f.__str__() for f in lst if Path.is_file(f)]
+        return {f"{suffix}_files": self.files(pathlist)}
 
 
-    
+
