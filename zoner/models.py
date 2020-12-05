@@ -1,5 +1,15 @@
 
 from pathlib import Path
+from shutil import move
+
+posix=lambda fpath: fpath.as_posix()
+rplace=lambda strng: strng.replace(' ', '-').lower()
+unpack=lambda lst: " ".join(map(str, lst))
+search=lambda strng, lst: [rslt for rslt in lst if strng in rslt.as_posix()]
+spacechk=lambda lst: [pth for pth in lst if len(posix(pth).split()) > 1]
+peek=lambda dname: list(Path(dname).iterdir())
+shift=lambda fpath, dpath: move(posix(fpath), dpath)
+rname=lambda fpath: fpath.rename(rplace(posix(fpath)))
 
 
 class File:
@@ -21,16 +31,11 @@ class File:
         for filetype, extension in self.filetypes.items():
             if self.name.suffix in extension:
                 return filetype
-            elif self.name.endswith('rc'):
+            elif posix(self.name).endswith('rc'):
                 return 'configuration'
             else:
                 return 'unknown'
 
-#    def __str__(self):
-#        return {
-#            f"{self.name.resolve().as_posix()}",
-#            f"{self.get_filetype()}"
-#            }
 
 
 class Folder:
@@ -55,16 +60,12 @@ class Folder:
             return 'standard'
 
 
-#    def __str__(self):
-#        return {
-#            f"{self.name.resolve().as_posix()}",
-#            f"{self.get_foldertype()}"
-#            }
-
 class Domain:
     def __init__(self):
         self.files=[]
         self.folders=[]
+
+    def get_path(self):
         for path in Path.home().iterdir():
             if path.is_file():
                 self.files.append(File(path.name))
@@ -73,8 +74,4 @@ class Domain:
 
     def file_seek(self, suffix, directory='.'):
         pathlist=Path(directory).glob('**/*' + suffix)
-        #filepaths=lambda lst: [f.__str__() for f in lst if Path.is_file(f)]
-        return {f"{suffix}_files": self.files(pathlist)}
-
-
-
+        return pathlist
