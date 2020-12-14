@@ -16,20 +16,24 @@ __version__ = '0.0.0'
 #import time
 #import warnings
 
-import ozone as zn
+from ozone import model, method
 
-ozones=zn.flowzone
-
-t
-
-    
 def main():
     """
     main - controls execution flow when run as script
     input - None
     output - module package output
     """
-    ozones=zn.flowzone
+
+    unpack=ozmeth.unpack
+
+    #zones=[Trail(posix(zn[0])) for zn in flowzone.values()]
+
+    print(
+        f"creative zones:\n"
+        f"{unpack([zn for zn in flow.keys()])}"
+        )
+
 
 if __name__ == "__main__":
     main()
@@ -37,4 +41,4 @@ if __name__ == "__main__":
 
 
 
-    
+

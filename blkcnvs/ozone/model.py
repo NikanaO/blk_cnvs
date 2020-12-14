@@ -1,7 +1,11 @@
-# %load /home/altvu/canvas/projects/blkcnvs/zones/models.py
-import methods
-
+#!/usr/bin/ env python3
 from pathlib import Path
+
+import method
+
+pk=method.peek
+psx=method.posix
+unpck=method.unpack
 
 
 def pathstamp(filepath):
@@ -12,27 +16,28 @@ def pathstamp(filepath):
         'data': ('.json', '.xml'),
         'media': ('.mp3','.mp4'),
     }
-    return unpack([filetype for filetype, extension in filetypes.items() if filepath.suffix in extension])
+    return unpck([filetype for filetype, extension in filetypes.items() if filepath.suffix in extension])
 
-def pathsearch(qstrng, srchdir):
-    return list(Path(srchdir).glob('**/*'+qstrng))
+ozones={pth.parent.name: pth.parent for pth in Path.home().glob('*/.meta')}
 
-
-def fixup(lvlkey):
-    meta=[pth for pth in zn.peek(ozone[lvlkey][0]) if pth.name == '.meta']
-    cntnt=[pth for pth in zn.peek(ozone[lvlkey][0]) if pth.name == 'dnloads']
-    return cntnt
-    
-class Trail:
-
+class Zone:
+    """overarching container for workflow units"""
     def __init__(self, label):
         self.label=Path(label).resolve()
         self.isdir=Path(label).is_dir()
-                
+
+    def contents(self):
+        """returns contents of directory if object is directory"""
+        if self.isdir:
+            return [Zone(label).label for label in list(Path(self.label).iterdir())]
+        else:
+            return None
 
     def __str__(self):
         if self.isdir:
-            return f"{self.label} directory trail"
+            return f"'{self.label.name}' contains {len(list(self.label.iterdir()))} paths"
         else:
-            return f"{self.label} file trail"
+            return None
+
+
 

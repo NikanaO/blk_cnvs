@@ -1,7 +1,6 @@
-src/easel/*
-src/viewer/*
 venv
 **/*.pyc
 env
 __pycache__
 .vscode/
+blkcnvs_readme.md
