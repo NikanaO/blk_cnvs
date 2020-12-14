@@ -1,8 +1,8 @@
-|blk_cnvs| 
+# blkcnvs
 
 
-|description_| 
-  the module calibrates indices with bash aliases and functions for effective workflow
+## description
+the module calibrates indices with bash aliases and functions for effective workflow
 
 |file_management|
 
@@ -12,7 +12,7 @@ canvas : the laboratory
 _
 
 _
-nexus : the library 
+nexus : the library
   dynamically indexes all other components of system
   workflow resources can be queried, navigated to, disseminated here
 _
@@ -33,7 +33,7 @@ easel : the artist
 _
 
 _
-nexus : the library 
+nexus : the library
   dynamically indexes all other components of system
   workflow resources can be queried, navigated to, disseminated here
 _
