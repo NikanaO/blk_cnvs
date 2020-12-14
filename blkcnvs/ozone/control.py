@@ -28,4 +28,5 @@ def filerename(dirpath, replace=True):
             print(
                 f"dst: {dst}\n"
                 f"src: {src}\n"
+                f"{count} files renamed"
             )

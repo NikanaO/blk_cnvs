@@ -25,20 +25,15 @@ def main():
     output - module package output
     """
 
-    unpack=ozmeth.unpack
+    unpack=method.unpack
 
     #zones=[Trail(posix(zn[0])) for zn in flowzone.values()]
 
     print(
         f"creative zones:\n"
-        f"{unpack([zn for zn in flow.keys()])}"
+        f"{unpack([zn for zn in model.ozones.keys()])}"
         )
 
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
