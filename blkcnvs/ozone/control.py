@@ -1,7 +1,7 @@
 # coding: utf-8
 import time
 
-import model, method
+from blkcnvs import model, method
 
 pthsrch=method.pathsearch
 psx=method.posix
