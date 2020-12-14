@@ -1,0 +1,16 @@
+canvas : the laboratory
+_
+
+_
+nexus : the library
+  dynamically indexes all other components of system
+  workflow resources can be queried, navigated to, disseminated here
+_
+
+_
+portal : the terminus
+_
+
+_
+studio : the media
+_
