@@ -1,7 +1,8 @@
-#!/usr/bin/ env python3
-from pathlib import Path
 
 import method
+
+from pathlib import Path
+
 
 pk=method.peek
 psx=method.posix
@@ -18,7 +19,6 @@ def pathstamp(filepath):
     }
     return unpck([filetype for filetype, extension in filetypes.items() if filepath.suffix in extension])
 
-ozones={pth.parent.name: pth.parent for pth in Path.home().glob('*/.meta')}
 
 class Zone:
     """overarching container for workflow units"""

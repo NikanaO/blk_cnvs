@@ -1,7 +1,9 @@
 # coding: utf-8
 import time
 
-from blkcnvs import model, method
+from blkcnvs.ozone import model, method # ipython patch
+#from blkcnvs import model, method # works in vscode
+
 
 pthsrch=method.pathsearch
 psx=method.posix
@@ -13,6 +15,7 @@ dctdeets=method.dctdetails
 
 
 def main():
+    ozones={pth.parent.name: pth.parent for pth in Path.home().glob('*/.meta')}
     bklnks=nxjsn('buk')
     clipsnips=nxjsn('clipr')
     taskdeets=nxjsn('taskr')
