@@ -5,21 +5,33 @@ import json
 from pathlib import Path
 from shutil import move
 
-posix=lambda fpath: fpath.as_posix()
-rplace=lambda strng: strng.replace(' ', '-').lower()
-unpack=lambda lst: " ".join(map(str, lst))
-posix_search=lambda strng, lst: [rslt for rslt in lst if strng in rslt.as_posix()]
-string_search=lambda strng, lst: [rslt for rslt in lst if strng in rslt]
-spacechk=lambda lst: [pth for pth in lst if len(posix(pth).split()) > 1]
-casecheck=lambda lst: [pth for pth in lst if pth.name[0].isupper()]
-peek=lambda dname: list(Path(dname).iterdir())
-shift=lambda fpath, dpath: move(posix(fpath), dpath)
-rname=lambda fpath: fpath.rename(rplace(posix(fpath)))
+psx=lambda fpath: fpath.as_posix()
+
 lcltime=lambda timestamp: time.localtime(int(timestamp))
 
-def pathsearch(qstrng, srchdir):
-    return list(Path(srchdir).glob('**/*'+qstrng))
+chk={
+    'spce': lambda lst: [pth for pth in lst if len(psx(pth).split()) > 1],
+    'cse': lambda lst: [pth for pth in lst if pth.name[0].isupper()],
+    }
 
+srch={
+    'sfx': lambda ext, dnm: list(Path(dnm).glob('**/*' + ext)),
+    'pfx': lambda pfx, dnm: list(Path(dnm).glob('**/' + str(pfx) + '*')),
+    'strpth': lambda strng, dnm: list(Path(dnm).glob('**/*' + str(strng) + '*')),
+    'strlst': lambda strng, lst: [rslt for rslt in lst if strng in rslt],
+    }
+
+strng={
+    'rplc': lambda char: char.replace(' ', '-'),
+    'lwr': lambda char: char.lower(),
+    }
+
+pthop={
+    'ls': lambda dname: list(Path(dname).iterdir())
+    'mv': lambda fpath, dpath: move(psx(fpath), dpath)
+    'rnm': lambda fpath: fpath.rename(strng['rplc'](psx(fpath)))
+    }
+    
 def dctdetails(dct):
     """
     utility - probes dictionary object and returns its composition
@@ -36,7 +48,7 @@ def nexjsons(strngfilter=''):
     if len(strngfilter) == 0:
         return [jsn for jsn in pathsearch('json', 'nexus/')]
     else:
-        return [jsn for jsn in pathsearch('json', 'nexus/') if strngfilter in posix(jsn)]
+        return [jsn for jsn in pathsearch('json', 'nexus/') if strngfilter in psx(jsn)]
 
 def json_decode(filepath):
     with open(filepath, 'r') as jsnr:
@@ -47,4 +59,5 @@ def json_decode(filepath):
 def json_encode(dictionary, filepath):
     with open(filepath, 'w') as jsnw:
         json.dump(dictionary, jsnw)
+
 

@@ -13,15 +13,4 @@ __version__ = '0.0.0'
 #import sys
 #import time
 #import warnings
-
-import ozone
-
-def main():
-    """
-    controls execution flow when run as script
-    module package output
-    """
-
-
-if __name__ == "__main__":
-    main()
+import ozone, viz

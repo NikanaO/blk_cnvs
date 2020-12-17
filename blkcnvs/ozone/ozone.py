@@ -1,9 +1,9 @@
-# coding: utf-8
+
 import time
 
 from blkcnvs.ozone import model, method # ipython patch
 #from blkcnvs import model, method # works in vscode
-
+unpck=lambda lst: " ".join(map(str, lst))
 
 pthsrch=method.pathsearch
 psx=method.posix

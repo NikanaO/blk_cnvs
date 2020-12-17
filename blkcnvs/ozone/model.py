@@ -1,23 +1,30 @@
 
-import method
 
 from pathlib import Path
 
 
-pk=method.peek
-psx=method.posix
-unpck=method.unpack
+pk=lambda dname: list(Path(dname).iterdir())
+psx=lambda fpath: fpath.as_posix()
+unpck=lambda lst: " ".join(map(str, lst))
 
+class Drop:
+    """the workflow unit akin to a file and nested within zones"""
+    def __init__(self, label):
+        self.label=Path(label).resolve()
+        self.isfile=Path(label).is_file()
 
-def pathstamp(filepath):
-    filetypes={
-        'image': ('.jpg','.png','.svg', '.ppm','.jpeg'),
-        'document': ('.pdf','.doc','.html', '.txt', '.save'),
-        'code': ('.py','.pyc','.sh','.ipynb','.js'),
-        'data': ('.json', '.xml'),
-        'media': ('.mp3','.mp4'),
-    }
-    return unpck([filetype for filetype, extension in filetypes.items() if filepath.suffix in extension])
+    def stamp(self):
+        drops={
+            'image': ('.jpg','.png','.svg', '.ppm','.jpeg'),
+            'document': ('.pdf','.doc','.html', '.txt', '.save'),
+            'code': ('.py','.pyc','.sh','.ipynb','.js'),
+            'data': ('.json', '.xml'),
+            'media': ('.mp3','.mp4'),
+            }
+        if self.isfile:
+            return unpck([drop for drop, extension in drops.items() if self.label.suffix in extension])
+        else:
+            return None
 
 
 class Zone:
@@ -38,6 +45,7 @@ class Zone:
             return f"'{self.label.name}' contains {len(list(self.label.iterdir()))} paths"
         else:
             return None
+
 
 
 
