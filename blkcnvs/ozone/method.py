@@ -6,7 +6,7 @@ from pathlib import Path
 from shutil import move
 
 psx=lambda fpath: fpath.as_posix()
-
+unpck=lambda lst: " ".join(map(str, lst))
 lcltime=lambda timestamp: time.localtime(int(timestamp))
 
 chk={
@@ -27,21 +27,29 @@ strng={
     }
 
 pthop={
-    'ls': lambda dname: list(Path(dname).iterdir())
-    'mv': lambda fpath, dpath: move(psx(fpath), dpath)
-    'rnm': lambda fpath: fpath.rename(strng['rplc'](psx(fpath)))
+    'ls': lambda dname: list(Path(dname).iterdir()),
+    'mv': lambda fpath, dpath: move(psx(fpath), dpath),
+    'rnm': lambda fpath: fpath.rename(strng['rplc'](psx(fpath))),
     }
     
-def dctdetails(dct):
+def deetstrct(jsondecoded):
     """
-    utility - probes dictionary object and returns its composition
-        input - object name (dictionary)
+    utility - probes decoded json object and returns its composition
+        input - jsondecoded
         output - keys paired with value type (tuple)
     """
-    objtype=lambda dct: [type(dct[key]) for key in [*dct]]
-    lvlkeys=lambda dct: [key for key in [*dct]]
-    layerdetail=zip(lvlkeys(dct), objtype(dct))
-    return layerdetail
+    dstrct={}
+    if type(jsondecoded) == list:
+        dstrct['list']={}
+        for length, datastrct in enumerate(jsondecoded):
+            dstrct[length]=datastrct
+            if 'dict' in str(type(datastrct)):
+                dstrct['keys']=[*datastrct]
+        return dstrct
+#        print(
+#            f"data_structure[]:\t{type(datastrct)}")
+#            f"keys: {[*datastrct]}") 
+#        print(f"sublevel one")
 
 
 def nexjsons(strngfilter=''):
@@ -61,3 +69,9 @@ def json_encode(dictionary, filepath):
         json.dump(dictionary, jsnw)
 
 
+
+# %load /home/altvu/canvas/vectorize.py
+def trashr(ipath):
+    p1 = subprocess.run(["trash", ipath])
+    print(f"trash_list:\n")
+    p2 = subprocess.run(["trash-list"])

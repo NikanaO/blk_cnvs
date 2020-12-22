@@ -1,13 +1,12 @@
 
 import time
 
-from blkcnvs.ozone import model, method # ipython patch
-#from blkcnvs import model, method # works in vscode
-unpck=lambda lst: " ".join(map(str, lst))
+from blkcnvs import model, method # works in vscode
 
-pthsrch=method.pathsearch
-psx=method.posix
-pk=method.peek
+
+psx=method.psx
+unpck=method.unpck
+pk=method.pthop['ls']
 nxjsn=method.nexjsons
 dcd=method.json_decode
 ecd=method.json_encode

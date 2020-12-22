@@ -3,10 +3,6 @@
 from pathlib import Path
 
 
-pk=lambda dname: list(Path(dname).iterdir())
-psx=lambda fpath: fpath.as_posix()
-unpck=lambda lst: " ".join(map(str, lst))
-
 class Drop:
     """the workflow unit akin to a file and nested within zones"""
     def __init__(self, label):
@@ -22,7 +18,7 @@ class Drop:
             'media': ('.mp3','.mp4'),
             }
         if self.isfile:
-            return unpck([drop for drop, extension in drops.items() if self.label.suffix in extension])
+            return [drop for drop, extension in drops.items() if self.label.suffix in extension]
         else:
             return None
 
